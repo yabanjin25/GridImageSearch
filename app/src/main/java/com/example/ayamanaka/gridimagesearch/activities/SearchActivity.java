@@ -2,12 +2,14 @@ package com.example.ayamanaka.gridimagesearch.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.SearchView;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.GridView;
 
 import com.example.ayamanaka.gridimagesearch.R;
@@ -21,7 +23,6 @@ import java.util.ArrayList;
 
 public class SearchActivity extends ActionBarActivity {
 
-    private EditText etQuery;
     private GridView gvResults;
     private GoogleSearchClient searchClient;
     private ArrayList<ImageResult> imageResults;
@@ -52,7 +53,6 @@ public class SearchActivity extends ActionBarActivity {
 
     private void setupViews()
     {
-        etQuery = (EditText) findViewById(R.id.etQuery);
         gvResults = (GridView) findViewById(R.id.gvResults);
         gvResults.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -73,9 +73,26 @@ public class SearchActivity extends ActionBarActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_search, menu);
-        return true;
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_search, menu);
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchItem.expandActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                QueryParams queryParams = new QueryParams(query);
+                queryParams.setResultsPerPage("8");
+                searchClient.fetchSearchResults(queryParams);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -91,24 +108,5 @@ public class SearchActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    // Fired whenever the button is pressed
-    public void onImageSearch(View v)
-    {
-        String query = etQuery.getText().toString();
-        QueryParams queryParams = new QueryParams(query);
-        queryParams.setResultsPerPage("8");
-        searchClient.fetchSearchResults(queryParams);
-
-//        AsyncHttpClient client = new AsyncHttpClient();
-//        //https://ajax.googleapis.com/ajax/services/search/images
-//        String searchUrl = "https://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=" + query + "&rsz=8";
-//        client.get(searchUrl, new JsonHttpResponseHandler() {
-//            @Override
-//            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-//                super.onSuccess(statusCode, headers, response);
-//            }
-//        });
     }
 }
