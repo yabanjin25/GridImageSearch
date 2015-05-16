@@ -92,6 +92,9 @@ public class SearchActivity extends ActionBarActivity {
                 return false;
             }
         });
+
+        MenuItem filterItem = menu.findItem(R.id.action_filter);
+        //filterItem
         return super.onCreateOptionsMenu(menu);
     }
 
