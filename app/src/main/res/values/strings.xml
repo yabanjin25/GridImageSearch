@@ -5,6 +5,17 @@
     <string name="search_prompt">Enter search query</string>
     <string name="search_label">Search</string>
     <string name="title_activity_image_display">Full Image Display</string>
+    <string name="tv_size_filter_label">Image Size</string>
+    <string name="tv_color_filter_label">Color Filter</string>
+    <string name="tv_type_filter_label">Image Type</string>
+    <string name="tv_site_filter_label">Site Filter</string>
+    <string name="sizes_prompt">Select a Size</string>
+    <string name="colors_prompt">Select a Color</string>
+    <string name="types_prompt">Select a Type</string>
+    <string name="sites_prompt">Enter a Site</string>
+    <string name="bt_save_filters_text">Save Filters</string>
+    <string name="bt_cancel_filters_text">Cancel</string>
+    <string name="et_site_filter_hint">ex. www.imgur.com</string>
 
-    <string name="hello_world">Hello world!</string>
+
 </resources>

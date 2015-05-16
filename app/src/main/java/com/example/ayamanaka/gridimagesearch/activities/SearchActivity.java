@@ -2,6 +2,7 @@ package com.example.ayamanaka.gridimagesearch.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.SearchView;
@@ -14,6 +15,7 @@ import android.widget.GridView;
 
 import com.example.ayamanaka.gridimagesearch.R;
 import com.example.ayamanaka.gridimagesearch.adapters.ImageResultsAdapter;
+import com.example.ayamanaka.gridimagesearch.fragments.EditFiltersDialog;
 import com.example.ayamanaka.gridimagesearch.models.ImageResult;
 import com.example.ayamanaka.gridimagesearch.models.QueryParams;
 import com.example.ayamanaka.gridimagesearch.net.GoogleSearchClient;
@@ -93,7 +95,7 @@ public class SearchActivity extends ActionBarActivity {
             }
         });
 
-        MenuItem filterItem = menu.findItem(R.id.action_filter);
+        //MenuItem filterItem = menu.findItem(R.id.action_filter);
         //filterItem
         return super.onCreateOptionsMenu(menu);
     }
@@ -110,6 +112,16 @@ public class SearchActivity extends ActionBarActivity {
             return true;
         }
 
+        if (id == R.id.action_filter) {
+            showEditDialog();
+        }
+
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showEditDialog() {
+        FragmentManager fm = getSupportFragmentManager();
+        EditFiltersDialog editNameDialog = EditFiltersDialog.newInstance("Edit Search Filters");
+        editNameDialog.show(fm, "fragment_edit_filters");
     }
 }
