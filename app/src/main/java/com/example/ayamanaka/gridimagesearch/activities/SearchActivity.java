@@ -11,9 +11,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.Toast;
 
+import com.etsy.android.grid.StaggeredGridView;
 import com.example.ayamanaka.gridimagesearch.EndlessScrollListener;
 import com.example.ayamanaka.gridimagesearch.R;
 import com.example.ayamanaka.gridimagesearch.adapters.ImageResultsAdapter;
@@ -27,7 +27,7 @@ import java.util.ArrayList;
 
 public class SearchActivity extends ActionBarActivity {
 
-    private GridView gvResults;
+    private StaggeredGridView gvResults;
     private GoogleSearchClient searchClient;
     private ArrayList<ImageResult> imageResults;
     private ImageResultsAdapter aImageResults;
@@ -73,7 +73,7 @@ public class SearchActivity extends ActionBarActivity {
 
     private void setupViews()
     {
-        gvResults = (GridView) findViewById(R.id.gvResults);
+        gvResults = (StaggeredGridView) findViewById(R.id.gvResults);
         gvResults.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

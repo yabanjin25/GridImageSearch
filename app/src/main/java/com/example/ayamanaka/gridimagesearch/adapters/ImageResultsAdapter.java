@@ -1,21 +1,18 @@
 package com.example.ayamanaka.gridimagesearch.adapters;
 
 import android.content.Context;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.example.ayamanaka.gridimagesearch.R;
+import com.example.ayamanaka.gridimagesearch.activities.SearchActivity;
+import com.example.ayamanaka.gridimagesearch.models.ImageResult;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
-
-import com.example.ayamanaka.gridimagesearch.activities.SearchActivity;
-import com.example.ayamanaka.gridimagesearch.models.ImageResult;
 
 public class ImageResultsAdapter extends ArrayAdapter<ImageResult> {
     private final int REQUEST_CODE = 20;
@@ -41,10 +38,8 @@ public class ImageResultsAdapter extends ArrayAdapter<ImageResult> {
         }
 
         ImageView ivResultImage = (ImageView) convertView.findViewById(R.id.ivImage);
-        TextView tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
 
         ivResultImage.setImageResource(0);
-        tvTitle.setText(Html.fromHtml(result.getTitle()));
         // Insert the image using picasso (send out async)
         Picasso.with(getContext())
                 .load(result.getThumbUrl())

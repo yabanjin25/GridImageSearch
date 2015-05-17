@@ -16,5 +16,7 @@
     <string name="bt_save_filters_text">Save Filters</string>
     <string name="bt_cancel_filters_text">Cancel</string>
     <string name="et_site_filter_hint">ex. imgur.com</string>
+    <string name="iv_image_description">Result Image</string>
+
 
 </resources>
