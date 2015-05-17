@@ -1,7 +1,11 @@
 package com.example.ayamanaka.gridimagesearch.net;
 
-import android.util.Log;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.widget.Toast;
 
+import com.example.ayamanaka.gridimagesearch.activities.SearchActivity;
 import com.example.ayamanaka.gridimagesearch.models.ImageResult;
 import com.example.ayamanaka.gridimagesearch.models.QueryParams;
 import com.loopj.android.http.AsyncHttpClient;
@@ -20,21 +24,26 @@ public class GoogleSearchClient {
 
     private GoogleSearchClientListener listener;
     private AsyncHttpClient asyncClient;
+    private SearchActivity searchActivity;
 
     public interface GoogleSearchClientListener {
         public void onFetchSearchResults(ArrayList<ImageResult> results);
     }
 
-    public GoogleSearchClient()
+    public GoogleSearchClient(SearchActivity searchActivity)
     {
         this.listener = null;
         this.asyncClient = new AsyncHttpClient();
+        this.searchActivity = searchActivity;
     }
 
     public void fetchSearchResults(QueryParams query) {
+        if (!isNetworkAvailable()) {
+            Toast.makeText(searchActivity, "No internet connection. Please connect to internet and try again.", Toast.LENGTH_LONG).show();
+            return;
+        }
 
         String searchUrl = getSearchUrl(query);
-        Log.i("DEBUG", searchUrl);
 
         // Trigger the GET request
         asyncClient.get(searchUrl, new JsonHttpResponseHandler() {
@@ -66,6 +75,7 @@ public class GoogleSearchClient {
             // onFailure (fail)
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                Toast.makeText(searchActivity, "An error occurred while trying to retrieve results.", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -87,7 +97,6 @@ public class GoogleSearchClient {
             imageResult.setSiteOrigin(resultJSONObject.getString("visibleUrl"));
             imageResult.setTitle(resultJSONObject.getString("title"));
 
-            Log.i("DEBUG", imageResult.getTitle());
             return imageResult;
         } catch (JSONException e) {
             e.printStackTrace();
@@ -100,5 +109,11 @@ public class GoogleSearchClient {
         return BASE_URL + query.toString();
     }
 
+    private Boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) searchActivity.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
+    }
 
 }

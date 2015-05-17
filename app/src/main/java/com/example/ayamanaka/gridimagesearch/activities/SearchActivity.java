@@ -38,7 +38,7 @@ public class SearchActivity extends ActionBarActivity {
         setupViews();
 
         queryParams = new QueryParams("");
-        searchClient = new GoogleSearchClient();
+        searchClient = new GoogleSearchClient(this);
 
         searchClient.setGoogleSearchClientListener(new GoogleSearchClient.GoogleSearchClientListener() {
             @Override
