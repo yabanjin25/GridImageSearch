@@ -43,8 +43,6 @@ public class GoogleSearchClient {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 ArrayList<ImageResult> imageResults = new ArrayList<>();
-
-                Log.d("DEBUG", response.toString());
                 // Iterate each of the result items and decode the item into a java object
                 JSONArray resultsJSON = null;
                 try {

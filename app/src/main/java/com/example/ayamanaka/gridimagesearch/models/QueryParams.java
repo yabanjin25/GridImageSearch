@@ -1,8 +1,9 @@
 package com.example.ayamanaka.gridimagesearch.models;
 
+import java.io.Serializable;
 import java.util.regex.Pattern;
 
-public class QueryParams {
+public class QueryParams implements Serializable {
 
     private String expression;
     private String color;

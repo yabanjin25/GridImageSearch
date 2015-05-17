@@ -29,6 +29,7 @@ public class SearchActivity extends ActionBarActivity {
     private GoogleSearchClient searchClient;
     private ArrayList<ImageResult> imageResults;
     private ImageResultsAdapter aImageResults;
+    private QueryParams queryParams;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,7 @@ public class SearchActivity extends ActionBarActivity {
         setContentView(R.layout.activity_search);
         setupViews();
 
+        queryParams = new QueryParams("");
         searchClient = new GoogleSearchClient();
 
         searchClient.setGoogleSearchClientListener(new GoogleSearchClient.GoogleSearchClientListener() {
@@ -83,7 +85,7 @@ public class SearchActivity extends ActionBarActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                QueryParams queryParams = new QueryParams(query);
+                queryParams.setExpression(query);
                 queryParams.setResultsPerPage("8");
                 searchClient.fetchSearchResults(queryParams);
                 return true;
@@ -113,15 +115,20 @@ public class SearchActivity extends ActionBarActivity {
         }
 
         if (id == R.id.action_filter) {
-            showEditDialog();
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("query_params", queryParams);
+            FragmentManager fm = getSupportFragmentManager();
+            EditFiltersDialog editNameDialog = EditFiltersDialog.newInstance("Edit Search Filters");
+            editNameDialog.setOnFiltersSavedListener(new EditFiltersDialog.OnFiltersSavedListener() {
+                @Override
+                public void onFiltersSaved(QueryParams qps) {
+                    queryParams = qps;
+                }
+            });
+            editNameDialog.setArguments(bundle);
+            editNameDialog.show(fm, "fragment_edit_filters");
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    private void showEditDialog() {
-        FragmentManager fm = getSupportFragmentManager();
-        EditFiltersDialog editNameDialog = EditFiltersDialog.newInstance("Edit Search Filters");
-        editNameDialog.show(fm, "fragment_edit_filters");
     }
 }

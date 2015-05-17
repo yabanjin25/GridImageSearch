@@ -2,9 +2,11 @@
 <resources>
     <string-array name="size_filter_array">
         <item></item>
-        <item>Small</item>
-        <item>Medium</item>
-        <item>Large</item>
-        <item>X-Large</item>
+        <item>small</item>
+        <item>medium</item>
+        <item>large</item>
+        <item>xlarge</item>
+        <item>xxlarge</item>
+        <item>huge</item>
     </string-array>
 </resources>

@@ -2,13 +2,13 @@
 <resources>
     <string-array name="color_filter_array">
         <item></item>
-        <item>Black</item>
-        <item>Blue</item>
-        <item>Brown</item>
-        <item>Grey</item>
-        <item>Green</item>
-        <item>Red</item>
-        <item>Yellow</item>
-        <item>Purple</item>
+        <item>black</item>
+        <item>blue</item>
+        <item>brown</item>
+        <item>grey</item>
+        <item>green</item>
+        <item>red</item>
+        <item>yellow</item>
+        <item>purple</item>
     </string-array>
 </resources>

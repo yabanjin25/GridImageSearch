@@ -15,7 +15,6 @@
     <string name="sites_prompt">Enter a Site</string>
     <string name="bt_save_filters_text">Save Filters</string>
     <string name="bt_cancel_filters_text">Cancel</string>
-    <string name="et_site_filter_hint">ex. www.imgur.com</string>
-
+    <string name="et_site_filter_hint">ex. imgur.com</string>
 
 </resources>
