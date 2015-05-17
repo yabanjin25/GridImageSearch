@@ -96,6 +96,7 @@ public class GoogleSearchClient {
             imageResult.setThumbUrl(resultJSONObject.getString("tbUrl"));
             imageResult.setSiteOrigin(resultJSONObject.getString("visibleUrl"));
             imageResult.setTitle(resultJSONObject.getString("title"));
+            imageResult.setTitleNoFormatting(resultJSONObject.getString("titleNoFormatting"));
 
             return imageResult;
         } catch (JSONException e) {

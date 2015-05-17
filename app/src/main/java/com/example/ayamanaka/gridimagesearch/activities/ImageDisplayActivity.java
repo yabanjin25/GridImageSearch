@@ -1,12 +1,14 @@
 package com.example.ayamanaka.gridimagesearch.activities;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 
 import com.example.ayamanaka.gridimagesearch.R;
+import com.example.ayamanaka.gridimagesearch.models.ImageResult;
 import com.squareup.picasso.Picasso;
 
 public class ImageDisplayActivity extends ActionBarActivity {
@@ -15,12 +17,17 @@ public class ImageDisplayActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_display);
+        // Pull out image result from intent
+        ImageResult imageResult = (ImageResult) getIntent().getSerializableExtra("image");
         // Pull out url from intent
-        String url = getIntent().getStringExtra("url");
+        String url = imageResult.getFullUrl();
         // Find the image view
         ImageView ivImageResult = (ImageView) findViewById(R.id.ivImageResult);
         // Load the image url into the imageview using picasso
         Picasso.with(this).load(url).into(ivImageResult);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle(imageResult.getTitleNoFormatting());
     }
 
 
@@ -39,7 +46,12 @@ public class ImageDisplayActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_share) {
+            return true;
+        }
+
+        if (id == android.R.id.home) {
+            finish();
             return true;
         }
 

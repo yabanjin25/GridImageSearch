@@ -1,6 +1,8 @@
 package com.example.ayamanaka.gridimagesearch.models;
 
-public class ImageResult {
+import java.io.Serializable;
+
+public class ImageResult implements Serializable {
     private String id;
     private String height;
     private String width;
@@ -8,6 +10,7 @@ public class ImageResult {
     private String thumbUrl;
     private String siteOrigin;
     private String title;
+    private String titleNoFormatting;
 
     public void setId(String id)
     {
@@ -44,6 +47,11 @@ public class ImageResult {
         this.title = title;
     }
 
+    public void setTitleNoFormatting(String title)
+    {
+        this.titleNoFormatting = title;
+    }
+
     public String getId()
     {
         return id;
@@ -78,4 +86,10 @@ public class ImageResult {
     {
         return title;
     }
+
+    public String getTitleNoFormatting()
+    {
+        return titleNoFormatting;
+    }
+
 }

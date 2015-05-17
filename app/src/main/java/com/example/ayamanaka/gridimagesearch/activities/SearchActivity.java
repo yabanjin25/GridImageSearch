@@ -83,7 +83,7 @@ public class SearchActivity extends ActionBarActivity {
                 // Get image result to display
                 ImageResult result = imageResults.get(position);
                 // Pass image result into intent
-                i.putExtra("url", result.getFullUrl());
+                i.putExtra("image", result);
                 // Launch new activity
                 startActivity(i);
             }
@@ -128,11 +128,6 @@ public class SearchActivity extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
 
         if (id == R.id.action_filter) {
             Bundle bundle = new Bundle();
