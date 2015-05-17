@@ -12,7 +12,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.Toast;
 
+import com.example.ayamanaka.gridimagesearch.EndlessScrollListener;
 import com.example.ayamanaka.gridimagesearch.R;
 import com.example.ayamanaka.gridimagesearch.adapters.ImageResultsAdapter;
 import com.example.ayamanaka.gridimagesearch.fragments.EditFiltersDialog;
@@ -30,6 +32,8 @@ public class SearchActivity extends ActionBarActivity {
     private ArrayList<ImageResult> imageResults;
     private ImageResultsAdapter aImageResults;
     private QueryParams queryParams;
+    private SearchView searchView;
+    public static final String RESULTS_PER_PAGE = "8";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +47,8 @@ public class SearchActivity extends ActionBarActivity {
         searchClient.setGoogleSearchClientListener(new GoogleSearchClient.GoogleSearchClientListener() {
             @Override
             public void onFetchSearchResults(ArrayList<ImageResult> results) {
-                imageResults.clear();
-                imageResults.addAll(results);
-                aImageResults.notifyDataSetChanged();
+                    imageResults.addAll(results);
+                    aImageResults.notifyDataSetChanged();
             }
         });
 
@@ -53,6 +56,19 @@ public class SearchActivity extends ActionBarActivity {
         // Create the adapter linking it to the source
         aImageResults = new ImageResultsAdapter(this, this, imageResults);
         gvResults.setAdapter(aImageResults);
+        gvResults.setOnScrollListener(new EndlessScrollListener() {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount) {
+                // Triggered only when new data needs to be appended to the list
+                // Add whatever code is needed to append new items to your AdapterView
+                if (page >= 64) {
+                    displayMaxResultsToast();
+                } else {
+                    queryParams.setIndexOfFirstResult(page + "");
+                    searchClient.fetchSearchResults(queryParams);
+                }
+            }
+        });
     }
 
     private void setupViews()
@@ -80,14 +96,18 @@ public class SearchActivity extends ActionBarActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_search, menu);
         MenuItem searchItem = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         searchItem.expandActionView();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                imageResults.clear();
+                aImageResults.notifyDataSetChanged();
                 queryParams.setExpression(query);
-                queryParams.setResultsPerPage("8");
+                queryParams.setResultsPerPage(RESULTS_PER_PAGE);
+                queryParams.setIndexOfFirstResult("0");
                 searchClient.fetchSearchResults(queryParams);
+                searchView.clearFocus();
                 return true;
             }
 
@@ -130,5 +150,10 @@ public class SearchActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void displayMaxResultsToast()
+    {
+        Toast.makeText(this, "Maximum results reached", Toast.LENGTH_SHORT).show();
     }
 }
