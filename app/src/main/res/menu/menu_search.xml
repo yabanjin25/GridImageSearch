@@ -10,7 +10,7 @@
 
     <item android:id="@+id/action_filter"
         android:title="Filter"
-        android:icon="@drawable/ic_action_filter"
+        android:icon="@drawable/ic_filters_settings"
         app:showAsAction="always"
         />
 

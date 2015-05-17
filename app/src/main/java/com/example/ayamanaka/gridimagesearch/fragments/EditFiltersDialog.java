@@ -55,7 +55,7 @@ public class EditFiltersDialog extends DialogFragment {
         btSave = (Button) view.findViewById(R.id.btSaveFilters);
         btCancel = (Button) view.findViewById(R.id.btCancel);
 
-        String title = getArguments().getString("title", "Choose Search Filters");
+        String title = getArguments().getString("title", "Advanced Filters");
         getDialog().setTitle(title);
 
         // Create an ArrayAdapter using the string array and a default spinner layout

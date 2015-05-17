@@ -138,7 +138,7 @@ public class SearchActivity extends ActionBarActivity {
             Bundle bundle = new Bundle();
             bundle.putSerializable("query_params", queryParams);
             FragmentManager fm = getSupportFragmentManager();
-            EditFiltersDialog editNameDialog = EditFiltersDialog.newInstance("Edit Search Filters");
+            EditFiltersDialog editNameDialog = EditFiltersDialog.newInstance("Advanced Filters");
             editNameDialog.setOnFiltersSavedListener(new EditFiltersDialog.OnFiltersSavedListener() {
                 @Override
                 public void onFiltersSaved(QueryParams qps) {
