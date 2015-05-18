@@ -5,9 +5,9 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
 
 import com.example.ayamanaka.gridimagesearch.R;
+import com.example.ayamanaka.gridimagesearch.TouchImageView;
 import com.example.ayamanaka.gridimagesearch.models.ImageResult;
 import com.squareup.picasso.Picasso;
 
@@ -22,8 +22,7 @@ public class ImageDisplayActivity extends ActionBarActivity {
         // Pull out url from intent
         String url = imageResult.getFullUrl();
         // Find the image view
-        ImageView ivImageResult = (ImageView) findViewById(R.id.ivImageResult);
-        // Load the image url into the imageview using picasso
+        TouchImageView ivImageResult = (TouchImageView) findViewById(R.id.ivImageResult);
         Picasso.with(this).load(url).into(ivImageResult);
 
         ActionBar actionBar = getSupportActionBar();
