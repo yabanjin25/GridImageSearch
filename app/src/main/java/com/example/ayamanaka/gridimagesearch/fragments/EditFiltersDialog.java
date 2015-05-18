@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 
@@ -22,6 +23,8 @@ public class EditFiltersDialog extends DialogFragment {
     private Spinner spinnerSizeFilter;
     private Spinner spinnerColorFilter;
     private Spinner spinnerTypeFilter;
+    private Spinner spinnerFileTypeFilter;
+    private CheckBox cbSafeSearch;
     private QueryParams queryParams;
     private Button btCancel;
     private Button btSave;
@@ -52,6 +55,8 @@ public class EditFiltersDialog extends DialogFragment {
         spinnerSizeFilter = (Spinner) view.findViewById(R.id.spinnerSizeFilter);
         spinnerColorFilter = (Spinner) view.findViewById(R.id.spinnerColorFilter);
         spinnerTypeFilter = (Spinner) view.findViewById(R.id.spinnerTypeFilter);
+        spinnerFileTypeFilter = (Spinner) view.findViewById(R.id.spinnerFileTypeFilter);
+        cbSafeSearch = (CheckBox) view.findViewById(R.id.cbSafeSearch);
         btSave = (Button) view.findViewById(R.id.btSaveFilters);
         btCancel = (Button) view.findViewById(R.id.btCancel);
 
@@ -74,7 +79,6 @@ public class EditFiltersDialog extends DialogFragment {
         spinnerColorFilter.setAdapter(adapterSpinnerColor);
         spinnerColorFilter.setSelection(adapterSpinnerColor.getPosition(queryParams.getColor()));
 
-
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapterSpinnerType = ArrayAdapter.createFromResource(this.getActivity().getBaseContext(), R.array.type_filter_array, android.R.layout.simple_spinner_item);
         // Specify the layout to use when the list of choices appears
@@ -82,6 +86,20 @@ public class EditFiltersDialog extends DialogFragment {
         // Apply the adapter to the spinner
         spinnerTypeFilter.setAdapter(adapterSpinnerType);
         spinnerTypeFilter.setSelection(adapterSpinnerType.getPosition(queryParams.getImageType()));
+
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapterSpinnerFileType = ArrayAdapter.createFromResource(this.getActivity().getBaseContext(), R.array.file_type_filter_array, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapterSpinnerFileType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinnerFileTypeFilter.setAdapter(adapterSpinnerFileType);
+        spinnerFileTypeFilter.setSelection(adapterSpinnerFileType.getPosition(queryParams.getFileType()));
+
+        if (queryParams.getSafe().equals("active")) {
+            cbSafeSearch.setChecked(true);
+        } else {
+            cbSafeSearch.setChecked(false);
+        }
 
         btSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,7 +135,14 @@ public class EditFiltersDialog extends DialogFragment {
         queryParams.setColor(spinnerColorFilter.getSelectedItem().toString().toLowerCase());
         queryParams.setImageType(spinnerTypeFilter.getSelectedItem().toString().toLowerCase());
         queryParams.setSize(spinnerSizeFilter.getSelectedItem().toString().toLowerCase());
+        queryParams.setFileType(spinnerFileTypeFilter.getSelectedItem().toString().toLowerCase());
         queryParams.setSiteFilter(etSiteFilter.getText().toString().toLowerCase());
+
+        if (cbSafeSearch.isChecked()) {
+            queryParams.setSafe("active");
+        } else {
+            queryParams.setSafe("");
+        }
     }
 
     public void setOnFiltersSavedListener(OnFiltersSavedListener listener)

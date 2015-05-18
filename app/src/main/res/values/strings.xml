@@ -8,15 +8,17 @@
     <string name="tv_size_filter_label">Image Size</string>
     <string name="tv_color_filter_label">Color Filter</string>
     <string name="tv_type_filter_label">Image Type</string>
+    <string name="tv_file_type_filter_label">File Type</string>
     <string name="tv_site_filter_label">Site Filter</string>
+    <string name="tv_safe_search_label">Safe Search On?</string>
     <string name="sizes_prompt">Select a Size</string>
     <string name="colors_prompt">Select a Color</string>
     <string name="types_prompt">Select a Type</string>
+    <string name="file_types_prompt">Enter a File Type</string>
     <string name="sites_prompt">Enter a Site</string>
     <string name="bt_save_filters_text">Save Filters</string>
     <string name="bt_cancel_filters_text">Cancel</string>
     <string name="et_site_filter_hint">ex. imgur.com</string>
     <string name="iv_image_description">Result Image</string>
-
 
 </resources>

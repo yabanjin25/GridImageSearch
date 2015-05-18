@@ -60,7 +60,7 @@
         android:layout_below="@+id/spinnerColorFilter"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_above="@+id/tvSiteFilterLabel"
+        android:layout_above="@+id/tvFileTypeLabel"
         android:gravity="center_vertical"/>
 
     <Spinner
@@ -78,13 +78,37 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/tv_site_filter_label"
-        android:id="@+id/tvSiteFilterLabel"
+        android:text="@string/tv_file_type_filter_label"
+        android:id="@+id/tvFileTypeLabel"
         android:layout_below="@+id/spinnerTypeFilter"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_above="@+id/tvSiteFilterLabel"
+        android:gravity="center_vertical"
         android:layout_toLeftOf="@+id/spinnerTypeFilter"
-        android:layout_toStartOf="@+id/spinnerTypeFilter"
+        android:layout_toStartOf="@+id/spinnerTypeFilter" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinnerFileTypeFilter"
+        android:layout_below="@+id/spinnerTypeFilter"
+        android:layout_toEndOf="@+id/tvImageTypeLabel"
+        android:spinnerMode="dropdown"
+        android:prompt="@string/file_types_prompt"
+        android:layout_toRightOf="@+id/tvImageTypeLabel" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/tv_site_filter_label"
+        android:id="@+id/tvSiteFilterLabel"
+        android:layout_below="@+id/spinnerFileTypeFilter"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/spinnerFileTypeFilter"
+        android:layout_toStartOf="@+id/spinnerFileTypeFilter"
         android:layout_alignBottom="@+id/etSiteFilter"
         android:gravity="center_vertical"/>
 
@@ -92,19 +116,44 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/etSiteFilter"
-        android:layout_below="@+id/spinnerTypeFilter"
+        android:layout_below="@+id/spinnerFileTypeFilter"
         android:layout_toRightOf="@+id/tvSiteFilterLabel"
         android:layout_toEndOf="@+id/tvSiteFilterLabel"
         android:hint="@string/et_site_filter_hint"
         android:singleLine="true"
         android:scrollHorizontally="true"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/tv_safe_search_label"
+        android:id="@+id/tvSafeSearchLabel"
+        android:layout_below="@+id/tvSiteFilterLabel"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignBottom="@+id/cbSafeSearch"
+        android:gravity="center_vertical"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginEnd="20dp"/>
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/cbSafeSearch"
+        android:layout_below="@+id/etSiteFilter"
+        android:layout_toRightOf="@+id/tvSafeSearchLabel"
+        android:layout_toEndOf="@+id/tvSafeSearchLabel"
+        android:layout_marginTop="10dp"
+        />
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/tvSiteFilterLabel"
+        android:layout_below="@+id/tvSafeSearchLabel"
         android:layout_marginTop="20dp">
 
         <Button
